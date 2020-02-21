@@ -87,9 +87,11 @@ class WrapperBluetooth extends WrapperConnOriented {
     void init(Config config, Context context) throws IOException {
         this.secure = config.isSecure();
         this.ownName = BluetoothUtil.getCurrentName();
-        this.ownMac = BluetoothUtil.getCurrentMac(context);
+//        this.ownMac = BluetoothUtil.getCurrentMac(context);
+        this.ownMac=config.getBluetoothMacAdd();
         this.listenerDataLink.initInfos(ownMac, ownName);
         this.ownStringUUID = BluetoothUtil.UUID + ownMac.replace(":", "").toLowerCase();
+
         this.listenServer();
     }
 
@@ -103,6 +105,9 @@ class WrapperBluetooth extends WrapperConnOriented {
      */
     @Override
     void connect(short attempts, AdHocDevice adHocDevice) throws DeviceException {
+
+        Log.d(TAG,ownMac);
+
 
         BluetoothAdHocDevice btDevice = (BluetoothAdHocDevice) mapMacDevices.get(adHocDevice.getMacAddress());
         if (btDevice != null) {

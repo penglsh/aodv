@@ -1,8 +1,11 @@
 package com.montefiore.gaulthiergain.adhoclibrary.datalink.sockets;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.montefiore.gaulthiergain.adhoclibrary.datalink.util.MessageAdHoc;
 import com.montefiore.gaulthiergain.adhoclibrary.datalink.util.Utils;
+import com.montefiore.gaulthiergain.adhoclibrary.datalink.sockets.SocketSendMessageThread;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -10,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+
 
 /**
  * <p>This class manages the connection between peers and allows to send and receive network messages.</p>
@@ -49,18 +53,20 @@ public class SocketManager {
      * @throws IOException signals that an I/O exception of some sort has occurred.
      */
     public void sendMessage(MessageAdHoc msg) throws IOException {
-
-        if (json) {
-            PrintWriter pw = new PrintWriter(oos);
-            pw.println(mapper.writeValueAsString(msg));
-            pw.flush();
-        } else {
-            byte[] byteArray = Utils.serialize(msg);
-            if (byteArray != null) {
-                oos.writeInt(byteArray.length);
-                oos.write(byteArray);
-            }
-        }
+        Log.d("SocketManage", "send Message");
+        SocketSendMessageThread ssmt=new SocketSendMessageThread(msg,this.oos,this.json,this.mapper);
+        ssmt.start();
+//        if (json) {
+//            PrintWriter pw = new PrintWriter(oos);
+//            pw.println(mapper.writeValueAsString(msg));
+//            pw.flush();
+//        } else {
+//            byte[] byteArray = Utils.serialize(msg);
+//            if (byteArray != null) {
+//                oos.writeInt(byteArray.length);
+//                oos.write(byteArray);
+//            }
+//        }
     }
 
     /**

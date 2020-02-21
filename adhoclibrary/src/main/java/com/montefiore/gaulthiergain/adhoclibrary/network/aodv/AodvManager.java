@@ -51,6 +51,8 @@ public class AodvManager {
     private MessageAdHoc dataMessage;
     private ListenerDataLink listenerDataLink;
 
+
+
     /**
      * Constructor
      *
@@ -840,5 +842,9 @@ public class AodvManager {
     public void updateListener(ListenerApp listenerApp) {
         this.listenerApp = listenerApp;
         this.dataLink.updateListener(listenerApp);
+    }
+
+    public void setBluetoothMacAddress(String btMacAdd) {
+        dataLink.setBluetoothMacAddress(btMacAdd);
     }
 }

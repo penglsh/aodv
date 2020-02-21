@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.crypto.Mac;
+
 
 /**
  * <p>This class defines the constants, parameters and methods for managing connections, and
@@ -291,6 +293,8 @@ abstract class AbstractWrapper {
         return ownMac;
     }
 
+
+
     /**
      * Method allowing to check if a message is already received for the connection flooding option.
      *
@@ -316,5 +320,9 @@ abstract class AbstractWrapper {
      */
     void updateListener(ListenerApp listenerApp) {
         this.listenerApp = listenerApp;
+    }
+
+    public void setMac(String MacAdd){
+        ownMac= MacAdd;
     }
 }

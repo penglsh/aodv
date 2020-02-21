@@ -1,7 +1,6 @@
 package com.montefiore.gaulthiergain.adhoclibrary.appframework;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.montefiore.gaulthiergain.adhoclibrary.datalink.bluetooth.BluetoothAdHocDevice;
 import com.montefiore.gaulthiergain.adhoclibrary.datalink.exceptions.BluetoothBadDuration;
@@ -199,7 +198,9 @@ public class TransferManager {
         if (dataLinkManager.checkState() == 0) {
             throw new DeviceException("No wifi and bluetooth connectivity");
         }
+
         dataLinkManager.connect((short) attempts, adHocDevice);
+//        listenerApp.onConnection(adHocDevice);
     }
 
     /**
@@ -215,6 +216,7 @@ public class TransferManager {
         }
 
         dataLinkManager.connect((short) 1, adHocDevice);
+//        listenerApp.onConnection(adHocDevice);
     }
 
     /**
@@ -516,5 +518,15 @@ public class TransferManager {
      */
     public Config getConfig() {
         return config;
+    }
+
+    public void setBluetoothMacAddress(String btMacAdd) throws Exception {
+        config.setBluetoothMacAdd(btMacAdd);
+        if (aodvManager!=null){
+            aodvManager.setBluetoothMacAddress(btMacAdd);
+        }
+        else{
+            throw new Exception(" use setBluetoothMacAddress method after using transfermanager.start()");
+        }
     }
 }

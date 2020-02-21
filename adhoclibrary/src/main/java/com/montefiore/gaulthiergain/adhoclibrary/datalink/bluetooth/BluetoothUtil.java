@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.montefiore.gaulthiergain.adhoclibrary.datalink.exceptions.BluetoothBadDuration;
 
@@ -30,11 +30,12 @@ public class BluetoothUtil {
     public static String getCurrentMac(Context context) {
 
         String mac;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mac = android.provider.Settings.Secure.getString(context.getContentResolver(), "bluetooth_address");
-        } else {
-            mac = BluetoothAdapter.getDefaultAdapter().getAddress();
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            mac = android.provider.Settings.Secure.getString(context.getContentResolver(), "bluetooth_address");
+//        } else {
+//            mac = BluetoothAdapter.getDefaultAdapter().getAddress();
+//        }
+        mac = BluetoothAdapter.getDefaultAdapter().getAddress();
 
         return mac;
     }

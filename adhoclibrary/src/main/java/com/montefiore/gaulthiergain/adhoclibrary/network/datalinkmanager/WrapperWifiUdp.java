@@ -154,7 +154,6 @@ class WrapperWifiUdp extends AbstractWrapper implements IWrapperWifi {
      */
     @Override
     void discovery(final DiscoveryListener discoveryListener) {
-
         wifiAdHocManager.discovery(new DiscoveryListener() {
             @Override
             public void onDiscoveryStarted() {

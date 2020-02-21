@@ -55,6 +55,9 @@ public class BluetoothClient extends ServiceClient implements Runnable {
      */
     private void connect() throws NoConnectionException {
 
+        //** 测试设备uuid
+//        Log.d(TAG,this.bluetoothAdHocDevice.toString());
+
         if (state == STATE_NONE || state == STATE_CONNECTING) {
 
             if (v) Log.d(TAG, "connect to: " + bluetoothAdHocDevice.getDeviceName()
@@ -92,7 +95,9 @@ public class BluetoothClient extends ServiceClient implements Runnable {
                 setState(STATE_CONNECTED);
 
             } catch (IOException e) {
+
                 setState(STATE_NONE);
+//                throw new NoConnectionException(e.getMessage());
                 throw new NoConnectionException("Unable to connect to "
                         + bluetoothAdHocDevice.getUuid());
             }

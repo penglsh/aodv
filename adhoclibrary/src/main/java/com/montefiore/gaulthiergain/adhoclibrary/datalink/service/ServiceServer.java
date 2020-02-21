@@ -65,6 +65,6 @@ public abstract class ServiceServer extends Service {
      * SocketManager (socket).
      */
     public ConcurrentHashMap<String, SocketManager> getActiveConnections() {
-        return threadListen.getActiveConnexion();
+        return threadListen.getActiveConnection();
     }
 }

@@ -27,11 +27,14 @@ public class Config {
     private boolean connectionFlooding;
     private boolean reliableTransportWifi;
 
+    private String bluetoothMacAdd;
+
     /**
      * Default constructor
      */
     public Config() {
-        this.json = true;
+        this.json = false;
+
         this.secure = true;
         this.nbThreadBt = 7;
         this.nbThreadWifi = 10;
@@ -40,6 +43,7 @@ public class Config {
         this.connectionFlooding = false;
         this.reliableTransportWifi = true;
         this.label = String.valueOf(UUID.randomUUID());
+        this.bluetoothMacAdd="######";
     }
 
     /**
@@ -74,6 +78,7 @@ public class Config {
         this.nbThreadWifi = nbThreadWifi;
         this.connectionFlooding = connectionFlooding;
         this.reliableTransportWifi = reliableTransportWifi;
+        this.bluetoothMacAdd="######";
     }
 
     /**
@@ -169,6 +174,10 @@ public class Config {
      */
     public String getLabel() {
         return label;
+    }
+
+    public String getBluetoothMacAdd(){
+        return this.bluetoothMacAdd;
     }
 
     /**
@@ -312,5 +321,9 @@ public class Config {
      */
     public void setConnectionFlooding(boolean connectionFlooding) {
         this.connectionFlooding = connectionFlooding;
+    }
+
+    public void setBluetoothMacAdd(String btMacAdd){
+        this.bluetoothMacAdd=btMacAdd;
     }
 }

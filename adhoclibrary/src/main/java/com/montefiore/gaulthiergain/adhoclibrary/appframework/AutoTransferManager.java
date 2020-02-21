@@ -300,7 +300,7 @@ public class AutoTransferManager extends TransferManager {
 
                 // Add the device into the connected devices list
                 connectedDevices.add(adHocDevice.getMacAddress());
-                Log.d("#######01", "\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n*\n");
+
                 listenerApp.onConnection(adHocDevice);
 
                 // Remove device from the discovered devices list

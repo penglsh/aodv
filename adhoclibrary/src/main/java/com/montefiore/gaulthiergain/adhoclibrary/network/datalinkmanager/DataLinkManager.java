@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 
 import com.montefiore.gaulthiergain.adhoclibrary.appframework.Config;
 import com.montefiore.gaulthiergain.adhoclibrary.appframework.ListenerAction;
@@ -107,7 +106,6 @@ public class DataLinkManager {
                             discovery.onDiscoveryCompleted(mapAddressDevice);
                         }
                     });
-
                     wrapper.discovery(discovery);
                 }
             }
@@ -687,6 +685,10 @@ public class DataLinkManager {
             default:
                 return "Unknown";
         }
+    }
+
+    public void setBluetoothMacAddress(String btMacAdd) {
+        this.wrappers[Service.BLUETOOTH].setMac(btMacAdd);
     }
 
     public interface ListenerBothDiscovery {

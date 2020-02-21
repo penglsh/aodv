@@ -191,7 +191,7 @@ public class ThreadServer extends Thread {
      * @return a ConcurrentHashMap<String, SocketManager> which maps a remote device with a
      * SocketManager (socket).
      */
-    public ConcurrentHashMap<String, SocketManager> getActiveConnexion() {
+    public ConcurrentHashMap<String, SocketManager> getActiveConnection() {
         return listSocketDevice.getActiveConnection();
     }
 }

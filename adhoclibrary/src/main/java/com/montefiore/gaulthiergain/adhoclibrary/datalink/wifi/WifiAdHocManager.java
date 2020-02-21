@@ -59,7 +59,7 @@ public class WifiAdHocManager implements WifiP2pManager.ChannelListener {
     private static final String TXTRECORD_SERVER_PORT = "server_port";
     private static final String SERVICE_INSTANCE = "_adhoclibrary";
     private static final String SERVICE_REG_TYPE = "_presence._tcp";
-    private static final int MAX_TIMEOUT_CONNECT = 20000;
+    private static final int MAX_TIMEOUT_CONNECT = 200000;
     private static final byte DISCOVERY_COMPLETED = 0;
     private static final byte DISCOVERY_FAILED = 1;
 
@@ -178,6 +178,7 @@ public class WifiAdHocManager implements WifiP2pManager.ChannelListener {
 
                     if (!mapMacDevices.containsKey(device.getMacAddress())) {
                         mapMacDevices.put(device.getMacAddress(), device);
+                        // mapMacDevices.put(device.getMacAddress(), device);
                         if (v) Log.d(TAG, "Devices added: " + device.getDeviceName());
                     } else {
                         if (v)
@@ -230,6 +231,7 @@ public class WifiAdHocManager implements WifiP2pManager.ChannelListener {
                 // Launch timeout to cancel connection
                 timeoutConnection();
                 connectionWifiListener.onConnectionStarted();
+
             }
 
             @Override
@@ -806,10 +808,10 @@ public class WifiAdHocManager implements WifiP2pManager.ChannelListener {
             public void onSuccess() {
                 if (v) Log.d(TAG, "Start discoveryPeers");
             }
-
             @Override
             public void onFailure(int reasonCode) {
                 if (v)
+
                     Log.e(TAG, "Error start discoveryPeers (onFailure): " + errorCode(reasonCode));
                 if (discoveryListener != null) {
                     discoveryListener.onDiscoveryFailed(new Exception(errorCode(reasonCode)));

@@ -27,6 +27,8 @@ import com.montefiore.gaulthiergain.adhoclibrary.datalink.wifi.WifiServer;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.HashMap;
+
+
 import java.util.HashSet;
 import java.util.Map;
 
@@ -163,7 +165,6 @@ class WrapperWifi extends WrapperConnOriented implements IWrapperWifi {
      */
     @Override
     void discovery(final DiscoveryListener discoveryListener) {
-
         wifiAdHocManager.discovery(new DiscoveryListener() {
             @Override
             public void onDiscoveryStarted() {
@@ -608,6 +609,7 @@ class WrapperWifi extends WrapperConnOriented implements IWrapperWifi {
             @Override
             public void onConnectionStarted() {
                 if (v) Log.d(TAG, "Connection Started");
+
             }
 
             @Override
