@@ -1,0 +1,99 @@
+plugins {
+    id "com.jfrog.bintray" version "1.7.2" // jCenter
+    id "com.github.dcendents.android-maven" version "1.5" // maven
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.8.8'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:26.+'
+    testImplementation 'junit:junit:4.12'
+}
+
+// for Bintray
+def libGit = 'https://github.com/gaulthiergain/AdHocLib.git'
+def libUrl = 'https://github.com/gaulthiergain/AdHocLib'
+def libDescription = 'Android library for ad hoc communications'
+def libGroupId = 'com.montefiore.gaulthiergain.adhoclib'
+def libArtifactId = 'adhoclibrary'
+
+def bintray_user = ''
+def bintray_apikey = ''
+def bintray_gpg_phrase = ''
+
+// for Maven
+group = 'com.montefiore.gaulthiergain.adhoclib'
+version = '1.0.1'
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name libArtifactId
+            description libDescription
+            url libUrl
+            inceptionYear '2018'
+
+            packaging 'aar'
+            groupId libGroupId
+            artifactId libArtifactId
+            version '1.0.1'
+
+            licenses {
+                license {
+                    name 'MIT'
+                    url 'https://opensource.org/licenses/MIT'
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = bintray_user
+    key = bintray_apikey
+    pkg {
+        repo = libGroupId
+        name = libArtifactId
+        licenses = ['MIT']
+        vcsUrl = libGit
+        version {
+            name = '1.0.1-adhoclib'
+            gpg {
+                sign = true
+                passphrase = bintray_gpg_phrase
+            }
+        }
+    }
+    configurations = ['archives']
+}
