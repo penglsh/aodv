@@ -1,10 +1,12 @@
-package com.montefiore.gaulthiergain.adhoclib;
+package com.example.myapp;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.os.Bundle;
 
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.SpannableString;
 import android.util.Log;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ERROR = 2;
     private static final int REQUEST_CODE_LOC = 4;
 
+    private String bluetoothMacAddress;
     private TransferManager transferManager;
 
     private CustomAdapter dataAdapter;
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 updateLog(NORMAL, "Device " + adHocDevice.getDeviceName() + " - " + adHocDevice.getLabel() + " has joined");
             }
-            updateGui();
+            updateGui(adHocDevice.getLabel());
         }
 
         @Override
@@ -282,15 +285,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent=getIntent();
+        bluetoothMacAddress=intent.getStringExtra("bluetoothMacAddress");
+
+
         Config config = new Config();
+        config.setBluetoothMacAdd(bluetoothMacAddress);
         Log.d(TAG, config.toString());
 
         config.setConnectionFlooding(true);
         config.setReliableTransportWifi(true);
         config.setJson(true);
 
+
         transferManager = new TransferManager(true, config, listenerApp);
-        updateLog(NORMAL, "Own address is " + transferManager.getOwnAddress());
+
+        updateLog(NORMAL,"Own bluetooth mac address is "+ bluetoothMacAddress);
+        updateLog(NORMAL, "Own generated address is " + transferManager.getOwnAddress());
 
         try {
             transferManager.start(getApplicationContext());
@@ -298,6 +309,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             updateLog(ERROR, "IO exception: " + e.getMessage());
         }
+
+
 
         updateLog(NORMAL, "Transfer manager is initiated");
 
@@ -307,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
         scanButton.setVisibility(View.VISIBLE);
         scanButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
 
                 // Reset listView
                 ListView listView = findViewById(R.id.listViewDiscoveredDevice);
@@ -324,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
                         updateLog(ERROR, "Device exception: " + e.getMessage());
                     }
                 }
+
             }
         });
 
@@ -349,21 +364,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+//        updateGui();
         checkButtonClick();
 
     }
 
-    private void updateGui() {
+
+
+    private void updateGui(String label) {
 
         final EditText editTextDest = findViewById(R.id.editTextDest);
         editTextDest.setVisibility(View.VISIBLE);
+        editTextDest.setText(label);
 
         final EditText editTextSend = findViewById(R.id.editTextSend);
         editTextSend.setVisibility(View.VISIBLE);
+        editTextSend.setText("hello world");
 
         Button btnSend = findViewById(R.id.button_send);
         btnSend.setVisibility(View.VISIBLE);
+
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override

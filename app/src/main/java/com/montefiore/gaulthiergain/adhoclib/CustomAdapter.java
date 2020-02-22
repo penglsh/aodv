@@ -1,12 +1,13 @@
-package com.montefiore.gaulthiergain.adhoclib;
+package com.example.myapp;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 

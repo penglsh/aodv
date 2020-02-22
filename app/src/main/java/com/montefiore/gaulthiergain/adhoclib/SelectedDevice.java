@@ -1,4 +1,4 @@
-package com.montefiore.gaulthiergain.adhoclib;
+package com.example.myapp;
 
 import com.montefiore.gaulthiergain.adhoclibrary.datalink.service.AdHocDevice;
 
@@ -33,3 +33,4 @@ public class SelectedDevice extends AdHocDevice {
         return deviceName + " - " + macAddress + " - " + display(type);
     }
 }
+
